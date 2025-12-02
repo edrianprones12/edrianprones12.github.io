@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio | Edrian Prones</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo">EP</div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#hobbies">Hobbies</a></li>
+            <li><a href="#education">Education</a></li>
+            <li><a href="#comment">Comment</a></li>
+        </ul>
+        <div class="burger">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <div class="hero-image">
+                <img src="docs/pfp1.jpg" class="profile-pic">
+            </div>
+            <h1>Hi, I'm <span class="name">Edrian Prones</span></h1>
+            <div class="typewriter"><span></span></div>
+            <a href="#comment" class="cta-button">Let's Connect</a>
+        </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="about">
+        <h2>About Me</h2>
+        <div class="about-content">
+            <div class="about-image">
+                <img src="docs/pfp2.JPG">
+            </div>
+            <div class="about-text">
+                <p>Hello! My name is Edrian Prones, 20 years old and currently a 2nd year college student...</p>
+                <p>When I'm not coding, you'll find me on the volleyball court...</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills" class="skills">
+        <h2>My Skills</h2>
+        <div class="skills-grid">
+            <div class="skill-card"><i class="fab fa-html5"></i><h3>HTML5</h3></div>
+            <div class="skill-card"><i class="fab fa-css3-alt"></i><h3>CSS3</h3></div>
+            <div class="skill-card"><i class="fab fa-js"></i><h3>JavaScript</h3></div>
+            <div class="skill-card"><i class="fab fa-php"></i><h3>PHP</h3></div>
+        </div>
+    </section>
+
+    <!-- Hobbies -->
+    <section id="hobbies" class="hobbies">
+        <h2>Hobbies & Interests</h2>
+        <div class="hobbies-grid">
+            <div class="hobby-card"><i class="fas fa-volleyball-ball"></i><h3>Volleyball</h3></div>
+            <div class="hobby-card"><i class="fas fa-camera"></i><h3>Photography</h3></div>
+            <div class="hobby-card"><i class="fas fa-video"></i><h3>Video Editing</h3></div>
+            <div class="hobby-card"><i class="fas fa-music"></i><h3>Singing</h3></div>
+            <div class="hobby-card"><i class="fas fa-running"></i><h3>Dancing</h3></div>
+        </div>
+    </section>
+
+    <!-- Education -->
+    <section id="education" class="education">
+        <h2>Educational Background</h2>
+        <!-- keep your existing slider content here -->
+    </section>
+
+    <!-- COMMENT SECTION (STATIC localStorage version) -->
+    <section id="comment" class="comment">
+        <h2>Share your Thoughts!</h2>
+        <div class="comment-section-wrapper">
+
+            <form id="comment-form">
+                <div class="form-group">
+                    <input type="text" id="name" required placeholder="Your Name">
+                </div>
+                <div class="form-group">
+                    <input type="email" id="email" required placeholder="Your Email">
+                </div>
+                <div class="form-group">
+                    <textarea id="message" required placeholder="Your Message"></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Send</button>
+            </form>
+
+            <!-- Display latest comment -->
+            <div id="comment-card" class="comment-card">
+                <h3>Latest Comment (local only)</h3>
+                <div class="comment-content">
+                    <p class="comment-name"></p>
+                    <p class="comment-email"></p>
+                    <p class="comment-message"></p>
+                    <p class="comment-date"></p>
+                </div>
+            </div>
+
+        </div>
+
+        <p style="font-size: 12px; text-align:center; opacity:0.6; margin-top:10px;">
+            *Comments are saved only on your device (localStorage).*
+        </p>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="social-links">
+            <a href="https://www.facebook.com/edrian.prones"><i class="fab fa-facebook"></i></a>
+            <a href="https://www.instagram.com/eds.me_prns"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.tiktok.com/@eds.me_prns"><i class="fab fa-tiktok"></i></a>
+            <a href="https://www.youtube.com/@eds.me_prns"><i class="fab fa-youtube"></i></a>
+        </div>
+        <p>&copy; 2025 My Portfolio | Edrian Prones. All rights reserved.</p>
+    </footer>
+
+    <!-- LOCAL STORAGE SCRIPT -->
+    <script>
+        function loadComment() {
+            const saved = JSON.parse(localStorage.getItem("latestComment"));
+            if (!saved) return;
+
+            document.querySelector(".comment-name").textContent = "Name: " + saved.name;
+            document.querySelector(".comment-email").textContent = "Email: " + saved.email;
+            document.querySelector(".comment-message").textContent = "Message: " + saved.message;
+            document.querySelector(".comment-date").textContent = "Sent: " + saved.date;
+        }
+
+        document.getElementById("comment-form").addEventListener("submit", function(e) {
+            e.preventDefault();
+
+            const comment = {
+                name: document.getElementById("name").value,
+                email: document.getElementById("email").value,
+                message: document.getElementById("message").value,
+                date: new Date().toLocaleString()
+            };
+
+            localStorage.setItem("latestComment", JSON.stringify(comment));
+            loadComment();
+            this.reset();
+        });
+
+        loadComment();
+    </script>
+
+</body>
+</html>
